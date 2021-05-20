@@ -31,17 +31,11 @@ fn count_css_from_url(url string) int {
 
 	data := http.get_text(url)
 
-	mut doc := html.parse(data)
+	mut doc := html.parse(data)	
 	
-	tags := doc.get_tag_by_attribute_value('class', 'list_article_item')
-	
-	for tag in tags {
-		href := tag.children[0].attributes['href'] or { panic('key not found') }
-		title := tag.children[0].attributes['title'] or { panic('key not found') }
-		println('href: $href')
-		println('title: $title')
-		println('')
-	}
-	
+	tags := doc.get_tag('style')
 
+	mut counter := tags.len
+	
+	return counter
 }
