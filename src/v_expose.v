@@ -56,3 +56,17 @@ fn count_css_from_url(url string) int {
 	
 	return counter
 }
+
+fn count_js_from_url(url string) int{
+
+	data := http.get_text(url)
+
+	mut doc := html.parse(data)	
+	
+	tags := doc.get_tag('script')
+
+	mut counter := tags.len
+
+	return counter
+
+}
