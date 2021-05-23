@@ -38,21 +38,21 @@ fn count_css_from_url(url string) int {
 
 	mut counter := tags.len
 
-	mut lista := []&html.Tag
+	mut list := []&html.Tag
 	
 	for i := 0; i < tags.len; i++ {
 
-		lista = tags[i].children
+		list = tags[i].children
 	}
 
 	for i := 0; i < tags_in_head.len; i++ {
 
-		lista = tags_in_head[i].children		
+		list = tags_in_head[i].children		
 	}
 
-	for i := 0; i < lista.len; i++ {
+	for i := 0; i < list.len; i++ {
 		
-		if lista[i].attributes['rel'] == 'stylesheet'{
+		if list[i].attributes['rel'] == 'stylesheet'{
 
 			counter += 1
 		}
