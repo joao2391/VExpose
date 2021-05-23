@@ -131,4 +131,6 @@ fn get_jscontent_from_url(url string) []string{
 		string_list << list[i].content
 		
 	}
+
+	return string_list
 }
