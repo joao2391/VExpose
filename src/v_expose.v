@@ -42,13 +42,18 @@ fn count_css_from_url(url string) int {
 	
 	for i := 0; i < tags.len; i++ {
 
-		lista = tags[i].children		
+		lista = tags[i].children
+	}
+
+	for i := 0; i < tags_in_head.len; i++ {
+
+		lista = tags_in_head[i].children		
 	}
 
 	for i := 0; i < lista.len; i++ {
 		
 		if lista[i].attributes['rel'] == 'stylesheet'{
-			
+
 			counter += 1
 		}
 		
@@ -78,6 +83,19 @@ fn count_html_elements_from_url(url string) int{
 	mut doc := html.parse(data)	
 	
 	tags := doc.get_tags()
+
+	mut counter := tags.len
+
+	return counter
+}
+
+fn count_meta_from_url(url string) int{
+
+	data := http.get_text(url)
+
+	mut doc := html.parse(data)	
+	
+	tags := doc.get_tag('meta')
 
 	mut counter := tags.len
 
