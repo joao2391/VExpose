@@ -70,3 +70,16 @@ fn count_js_from_url(url string) int{
 	return counter
 
 }
+
+fn count_html_elements_from_url(url string) int{
+
+	data := http.get_text(url)
+
+	mut doc := html.parse(data)	
+	
+	tags := doc.get_tags()
+
+	mut counter := tags.len
+
+	return counter
+}
