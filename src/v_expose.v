@@ -134,3 +134,41 @@ fn get_jscontent_from_url(url string) []string{
 
 	return string_list
 }
+
+fn get_css_ref_from_url(url string) []string{
+
+	data := http.get_text(url)
+
+	mut doc := html.parse(data)	
+
+	tags := doc.get_tag('style')
+	tags_in_head := doc.get_tag('head')
+
+	mut counter := tags.len
+
+	mut list := []&html.Tag
+	mut string_list := []string
+	
+	for i := 0; i < tags.len; i++ {
+
+		list = tags[i].children
+	}
+
+	for i := 0; i < tags_in_head.len; i++ {
+
+		list = tags_in_head[i].children
+	}
+
+	for i := 0; i < list.len; i++ {
+		
+		if list[i].attributes['rel'] == 'stylesheet'{
+
+			string_list << list[i].attributes['href']
+		}
+		
+	}
+
+
+	return string_list
+
+}
