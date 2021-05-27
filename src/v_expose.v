@@ -172,3 +172,16 @@ fn get_css_ref_from_url(url string) []string{
 	return string_list
 
 }
+
+fn count_js_events_from_url(url string) int{
+
+	data := http.get_text(url)
+
+	mut doc := html.parse(data)	
+	
+	tags := doc.get_tag_by_attribute('onclick')
+
+	mut counter := tags.len
+
+	return counter
+}
