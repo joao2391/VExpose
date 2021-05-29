@@ -248,3 +248,22 @@ fn get_form_info_from_url(url string) map[string]string{
 
 	return map_act_meth
 }
+
+fn get_onclick_values_from_url(url string) []string]{
+
+	data := http.get_text(url)
+
+	mut doc := html.parse(data)	
+	
+	tags := doc.get_tag_by_attribute('onclick')
+
+	mut string_list := []string
+
+	for i := 0; i < tags.len; i++ {
+
+		string_list << tags[i].attributes['onclick']
+
+	}
+
+	return string_list
+}
