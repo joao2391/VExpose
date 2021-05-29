@@ -226,3 +226,25 @@ fn count_forms_from_url (url string) int{
 
 	return counter
 }
+
+fn get_form_info_from_url(url string) map[string]string{
+
+	data := http.get_text(url)
+
+	mut doc := html.parse(data)	
+	
+	tags := doc.get_tag('form')
+
+	mut map_act_meth := map[string]string
+	
+	for i := 0; i < tags.len; i++ {
+
+		mut action := tags[i].attributes['action']
+
+		mut method := tags[i].attributes['method']
+
+		map_act_meth[action] = method
+	}
+
+	return map_act_meth
+}
