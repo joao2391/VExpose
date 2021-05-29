@@ -185,3 +185,31 @@ fn count_js_events_from_url(url string) int{
 
 	return counter
 }
+
+fn get_css_content_from_url(url string) []string{
+
+	data := http.get_text(url)
+
+	mut doc := html.parse(data)	
+
+	tags := doc.get_tag('style')
+	tags_in_head := doc.get_tag('head')
+
+	mut counter := tags.len
+
+	mut list := []&html.Tag
+	mut string_list := []string
+	
+	for i := 0; i < tags.len; i++ {
+
+		string_list << tags[i].content
+	}
+
+	for i := 0; i < tags_in_head.len; i++ {
+
+		string_list << tags_in_head[i].content
+	}
+
+	
+	return string_list
+}
