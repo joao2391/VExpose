@@ -267,3 +267,26 @@ fn get_onclick_values_from_url(url string) []string]{
 
 	return string_list
 }
+
+fn has_ajax_calls_in_url(url string) bool{
+
+	data := http.get_text(url)
+
+	mut doc := html.parse(data)	
+	
+	tags := doc.get_tag('script')
+
+	mut has_ajax_call := false
+	
+	for i := 0; i < tags.len; i++ {
+
+		if '$.ajax' in tags[i].content{
+
+			has_ajax_call = true
+		}
+
+	}
+
+	return has_ajax_call
+
+}
