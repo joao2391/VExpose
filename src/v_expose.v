@@ -213,3 +213,16 @@ fn get_css_content_from_url(url string) []string{
 	
 	return string_list
 }
+
+fn count_forms_from_url (url string) int{
+
+	data := http.get_text(url)
+
+	mut doc := html.parse(data)	
+	
+	tags := doc.get_tag('form')
+
+	mut counter := tags.len
+
+	return counter
+}
