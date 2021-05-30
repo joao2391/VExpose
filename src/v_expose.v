@@ -3,8 +3,26 @@ module main
 import net.http
 import sync
 import time
+import json
 
-fn get_links_from_url(url string) map[int]string {
+
+pub struct Report {
+mut:	
+	amount_css int
+	amount_js int
+	amount_html_elements  int
+	amount_meta_elements int
+	amount_js_elements int
+	amount_forms int
+	amount_forms_info int
+	amount_js_content int
+	amount_onclick_events int
+	forms_info map[string]string
+	amount_onclick_values []string
+	has_ajax_call bool
+}
+
+pub fn get_links_from_url(url string) map[int]string {
 
 	start := time.ticks()
 	data := http.get_text(url)
@@ -27,7 +45,7 @@ fn get_links_from_url(url string) map[int]string {
 	return map_links
 }
 
-fn count_css_from_url(url string) int {
+pub fn count_css_from_url(url string) int {
 
 	data := http.get_text(url)
 
@@ -62,7 +80,7 @@ fn count_css_from_url(url string) int {
 	return counter
 }
 
-fn count_js_from_url(url string) int{
+pub fn count_js_from_url(url string) int{
 
 	data := http.get_text(url)
 
@@ -76,7 +94,7 @@ fn count_js_from_url(url string) int{
 
 }
 
-fn count_html_elements_from_url(url string) int{
+pub fn count_html_elements_from_url(url string) int{
 
 	data := http.get_text(url)
 
@@ -89,7 +107,7 @@ fn count_html_elements_from_url(url string) int{
 	return counter
 }
 
-fn count_meta_from_url(url string) int{
+pub fn count_meta_from_url(url string) int{
 
 	data := http.get_text(url)
 
@@ -102,7 +120,7 @@ fn count_meta_from_url(url string) int{
 	return counter
 }
 
-fn get_jscontent_from_url(url string) []string{
+pub fn get_jscontent_from_url(url string) []string{
 
 	data := http.get_text(url)
 
@@ -135,7 +153,7 @@ fn get_jscontent_from_url(url string) []string{
 	return string_list
 }
 
-fn get_css_ref_from_url(url string) []string{
+pub fn get_css_ref_from_url(url string) []string{
 
 	data := http.get_text(url)
 
@@ -173,7 +191,7 @@ fn get_css_ref_from_url(url string) []string{
 
 }
 
-fn count_js_events_from_url(url string) int{
+pub fn count_js_events_from_url(url string) int{
 
 	data := http.get_text(url)
 
@@ -186,7 +204,7 @@ fn count_js_events_from_url(url string) int{
 	return counter
 }
 
-fn get_css_content_from_url(url string) []string{
+pub fn get_css_content_from_url(url string) []string{
 
 	data := http.get_text(url)
 
@@ -214,7 +232,7 @@ fn get_css_content_from_url(url string) []string{
 	return string_list
 }
 
-fn count_forms_from_url (url string) int{
+pub fn count_forms_from_url (url string) int{
 
 	data := http.get_text(url)
 
@@ -227,7 +245,7 @@ fn count_forms_from_url (url string) int{
 	return counter
 }
 
-fn get_form_info_from_url(url string) map[string]string{
+pub fn get_form_info_from_url(url string) map[string]string{
 
 	data := http.get_text(url)
 
@@ -249,7 +267,7 @@ fn get_form_info_from_url(url string) map[string]string{
 	return map_act_meth
 }
 
-fn get_onclick_values_from_url(url string) []string]{
+pub fn get_onclick_values_from_url(url string) []string]{
 
 	data := http.get_text(url)
 
@@ -268,7 +286,7 @@ fn get_onclick_values_from_url(url string) []string]{
 	return string_list
 }
 
-fn has_ajax_calls_in_url(url string) bool{
+pub fn has_ajax_calls_in_url(url string) bool{
 
 	data := http.get_text(url)
 
@@ -290,7 +308,7 @@ fn has_ajax_calls_in_url(url string) bool{
 	return has_ajax_call
 }
 
-fn get_page_size_from_url(url string) f32{
+pub fn get_page_size_from_url(url string) f32{
 
 	data := http.get_text(url)
 
@@ -298,5 +316,21 @@ fn get_page_size_from_url(url string) f32{
 
 
 	return page_size
+
+}
+
+pub fn generate_report(url string) string{
+
+	mut report_json := Report{
+		amount_css: count_css_from_url(url)
+		amount_forms: count_forms_from_url(url)
+		amount_forms_info: get_form_info_from_url(url)
+		amount_html_elements: count_html_elements_from_url(url)
+		amount_js: count_js_from_url(url)		
+		amount_js_elements: count_js_events_from_url(url)
+		amount_meta_elements: count_meta_from_url(url)
+	}
+
+	return json.encode(report_json)
 
 }
