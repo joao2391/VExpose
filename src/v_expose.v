@@ -1,6 +1,7 @@
-module main
+module v_expose
 
 import net.http
+import net.html
 import sync
 import time
 import json
@@ -280,7 +281,7 @@ pub fn get_form_info_from_url(url string) map[string]string{
 }
 
 //get_onclick_values_from_url returns a []string with all onclick values in the URL
-pub fn get_onclick_values_from_url(url string) []string]{
+pub fn get_onclick_values_from_url(url string) []string{
 
 	data := http.get_text(url)
 
@@ -340,7 +341,6 @@ pub fn generate_report(url string) string{
 	mut report_json := Report{
 		amount_css: count_css_from_url(url)
 		amount_forms: count_forms_from_url(url)
-		amount_forms_info: get_form_info_from_url(url)
 		amount_html_elements: count_html_elements_from_url(url)
 		amount_js: count_js_from_url(url)		
 		amount_js_elements: count_js_events_from_url(url)
