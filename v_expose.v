@@ -1,4 +1,4 @@
-module v_expose
+module vexpose
 
 import net.http
 import net.html
