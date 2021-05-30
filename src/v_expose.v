@@ -288,5 +288,15 @@ fn has_ajax_calls_in_url(url string) bool{
 	}
 
 	return has_ajax_call
+}
+
+fn get_page_size_from_url(url string) f32{
+
+	data := http.get_text(url)
+
+	mut page_size := data.len / 1024
+
+
+	return page_size
 
 }
