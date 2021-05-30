@@ -5,7 +5,8 @@ import sync
 import time
 import json
 
-
+//Report is a struct that is used in generate_report function
+//to make a JSON with all information into it.
 pub struct Report {
 mut:	
 	amount_css int
@@ -22,6 +23,7 @@ mut:
 	has_ajax_call bool
 }
 
+//get_links_from_url retrives all links from URL
 pub fn get_links_from_url(url string) map[int]string {
 
 	start := time.ticks()
@@ -45,6 +47,7 @@ pub fn get_links_from_url(url string) map[int]string {
 	return map_links
 }
 
+//count_css_from_url returns an int with the amount of css in the URL
 pub fn count_css_from_url(url string) int {
 
 	data := http.get_text(url)
@@ -80,6 +83,7 @@ pub fn count_css_from_url(url string) int {
 	return counter
 }
 
+//count_js_from_url returns an int with the amount of js in the URL
 pub fn count_js_from_url(url string) int{
 
 	data := http.get_text(url)
@@ -94,6 +98,7 @@ pub fn count_js_from_url(url string) int{
 
 }
 
+//count_html_elements_from_url returns an int with amount of html elements in the URL
 pub fn count_html_elements_from_url(url string) int{
 
 	data := http.get_text(url)
@@ -107,6 +112,7 @@ pub fn count_html_elements_from_url(url string) int{
 	return counter
 }
 
+//count_meta_from_url returns an int with amount of meta elements in the URL
 pub fn count_meta_from_url(url string) int{
 
 	data := http.get_text(url)
@@ -120,6 +126,7 @@ pub fn count_meta_from_url(url string) int{
 	return counter
 }
 
+//get_jscontent_from_url returns a []string with all js content
 pub fn get_jscontent_from_url(url string) []string{
 
 	data := http.get_text(url)
@@ -153,6 +160,7 @@ pub fn get_jscontent_from_url(url string) []string{
 	return string_list
 }
 
+//get_css_ref_from_url returns a []string with all css referenced in the URL
 pub fn get_css_ref_from_url(url string) []string{
 
 	data := http.get_text(url)
@@ -191,6 +199,7 @@ pub fn get_css_ref_from_url(url string) []string{
 
 }
 
+//get_css_ref_from_url returns a []string with all css referenced in the URL
 pub fn count_js_events_from_url(url string) int{
 
 	data := http.get_text(url)
@@ -204,6 +213,7 @@ pub fn count_js_events_from_url(url string) int{
 	return counter
 }
 
+//get_css_content_from_url returns a []string with all css content in the URL
 pub fn get_css_content_from_url(url string) []string{
 
 	data := http.get_text(url)
@@ -232,6 +242,7 @@ pub fn get_css_content_from_url(url string) []string{
 	return string_list
 }
 
+//count_forms_from_url returns an int with amount of forms in the URL
 pub fn count_forms_from_url (url string) int{
 
 	data := http.get_text(url)
@@ -245,6 +256,7 @@ pub fn count_forms_from_url (url string) int{
 	return counter
 }
 
+//get_form_info_from_url returns a map[string]string with all forms info in the URL
 pub fn get_form_info_from_url(url string) map[string]string{
 
 	data := http.get_text(url)
@@ -267,6 +279,7 @@ pub fn get_form_info_from_url(url string) map[string]string{
 	return map_act_meth
 }
 
+//get_onclick_values_from_url returns a []string with all onclick values in the URL
 pub fn get_onclick_values_from_url(url string) []string]{
 
 	data := http.get_text(url)
@@ -286,6 +299,7 @@ pub fn get_onclick_values_from_url(url string) []string]{
 	return string_list
 }
 
+//has_ajax_calls_in_url returns a bool that indicates if URL has ajax calls
 pub fn has_ajax_calls_in_url(url string) bool{
 
 	data := http.get_text(url)
@@ -308,6 +322,7 @@ pub fn has_ajax_calls_in_url(url string) bool{
 	return has_ajax_call
 }
 
+//get_page_size_from_url returns f32 that indicates the size of page in URL
 pub fn get_page_size_from_url(url string) f32{
 
 	data := http.get_text(url)
@@ -319,6 +334,7 @@ pub fn get_page_size_from_url(url string) f32{
 
 }
 
+//generate_report returns a JSON with all information from functions in this module
 pub fn generate_report(url string) string{
 
 	mut report_json := Report{
